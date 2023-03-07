@@ -1,0 +1,9 @@
+---
+spring:
+  config.activate.on-profile: default
+cds:
+  messaging.services: 
+    - name: "messaging" 
+      kind: "enterprise-messaging" 
+  datasource:
+    auto-config.enabled: false

@@ -13,9 +13,11 @@ import org.springframework.stereotype.Component;
 import com.sap.cds.services.cds.CdsService;
 import com.sap.cds.services.handler.EventHandler;
 import com.sap.cds.services.handler.annotations.On;
+import com.sap.cds.services.handler.annotations.After;
 import com.sap.cds.services.handler.annotations.ServiceName;
 import com.sap.cds.services.messaging.MessagingService;
 
+import cds.gen.enterprisemessagingproducerservice.EnterpriseMessagingProducerService_;
 import cds.gen.enterprisemessagingproducerservice.Students;
 import cds.gen.sap.capire.enterprisemessagingproducer.Student;
 
@@ -26,10 +28,10 @@ public class ProducerHandler implements EventHandler {
 	private static final Logger logger = LoggerFactory.getLogger(ProducerHandler.class);
 
 	@Autowired
-	@Qualifier("messaging")
+	@Qualifier("taskmanager-events")
 	MessagingService messagingService;
 
-	@On(event = CdsService.EVENT_CREATE, entity = "EnterpriseMessagingProducerService.Students")
+	@After(event = CdsService.EVENT_CREATE, entity = EnterpriseMessagingProducerService_.CDS_NAME)
 	public void produceStudentEnrollementEvent(List<Students> studentlists) throws Exception {
 
 		JSONObject payload = new JSONObject();
@@ -50,7 +52,7 @@ public class ProducerHandler implements EventHandler {
 		payload.put("data", jsonArray);
 
 		logger.info("Data Emitted to the topic  {}", payload.toJSONString());
-		messagingService.emit("com/eventmesh/blog/StudentEnrolled", payload);
+		messagingService.emit("sap/taskmanager-events/event-mesh/Topic1", payload);
 
 	}
 

@@ -1,0 +1,34 @@
+---
+_schema-version: '3.1'
+ID: enterprise-messaging-producer
+version: 1.0.0-SNAPSHOT
+description: "enterprise-messaging-producer application"
+parameters:
+  enable-parallel-deployments: true
+modules:
+  - name: enterprise-messaging-producer-srv
+    type: java
+    path: srv
+    parameters:
+      buildpack: java_buildpack
+    properties:
+      SPRING_PROFILES_ACTIVE: cloud
+    requires:
+    - name: taskmanager-events
+    build-parameters:
+      builder: custom
+      commands:
+        - mvn clean package -DskipTests=true
+      build-result: target/*-exec.jar
+    provides:
+      - name: srv-api # required by consumers of CAP services (e.g. approuter)
+        properties:
+          srv-url: ${default-url}
+resources:
+  # SAP Event Mesh
+  - name: taskmanager-events
+    type: org.cloudfoundry.managed-service
+    parameters:
+      emname: taskmanager-events
+      service: enterprise-messaging
+      service-plan: default

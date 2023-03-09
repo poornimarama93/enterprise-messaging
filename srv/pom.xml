@@ -19,17 +19,8 @@
             <groupId>com.sap.cds</groupId>
             <artifactId>cds-starter-spring-boot</artifactId>
         </dependency>
-        <dependency>
-            <groupId>com.sap.cds</groupId>
-            <artifactId>cds-feature-enterprise-messaging</artifactId>
-			<version>1.32.0</version>
-            <scope>runtime</scope>
-        </dependency>
-					<dependency>
-						<groupId>com.sap.cds</groupId>
-						<artifactId>cds-feature-message-queuing</artifactId>
-						<scope>runtime</scope>
-					</dependency>
+
+
 
         <!-- ODATA PROTOCOL ADAPTER -->
         <dependency>
@@ -42,6 +33,12 @@
             <artifactId>nimbus-jose-jwt</artifactId>
             <version>9.23</version>
         </dependency>
+        <dependency>
+	<groupId>com.sap.cds</groupId>
+	<artifactId>cds-feature-cloudfoundry</artifactId>
+	<version>${cds.services.version}</version>
+	<scope>runtime</scope>
+</dependency>
 
         <dependency>
             <groupId>com.h2database</groupId>
@@ -54,6 +51,11 @@
             <artifactId>spring-boot-devtools</artifactId>
             <optional>true</optional>
         </dependency>
+<dependency>
+    <groupId>com.sap.cds</groupId>
+    <artifactId>cds-feature-enterprise-messaging</artifactId>
+	<version>${cds.services.version}</version>
+</dependency>
 
         <dependency>
             <groupId>junit</groupId>

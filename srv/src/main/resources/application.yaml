@@ -1,9 +1,12 @@
 ---
 spring:
-  config.activate.on-profile: default
+  config.activate.on-profile: cloud
 cds:
-  messaging.services: 
-    - name: "messaging" 
-      kind: "enterprise-messaging" 
   datasource:
     auto-config.enabled: false
+  messaging:
+    services:
+      - name: "taskmanager-events"
+        kind: "enterprise-messaging"
+        queue: 
+        - name: "StudentEnrolled"

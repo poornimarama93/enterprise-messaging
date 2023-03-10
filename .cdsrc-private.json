@@ -1,0 +1,20 @@
+{
+  "requires": {
+    "[hybrid]": {
+      "custom-service:taskmanager-events": {
+        "binding": {
+          "type": "cf",
+          "apiEndpoint": "https://api.cf.eu12.hana.ondemand.com",
+          "org": "mis-sandbox",
+          "space": "misIndia",
+          "instance": "taskmanager-events",
+          "key": "taskmanager-events-key",
+          "resolved": false
+        },
+        "vcap": {
+          "name": "custom-service:taskmanager-events"
+        }
+      }
+    }
+  }
+}

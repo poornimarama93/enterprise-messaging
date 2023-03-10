@@ -29,6 +29,5 @@ resources:
   - name: taskmanager-events
     type: org.cloudfoundry.managed-service
     parameters:
-      emname: taskmanager-events
       service: enterprise-messaging
       service-plan: default

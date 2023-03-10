@@ -7,6 +7,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 
@@ -22,6 +23,7 @@ import cds.gen.enterprisemessagingproducerservice.Students;
 import cds.gen.sap.capire.enterprisemessagingproducer.Student;
 
 @Component
+@Profile("cloud")
 @ServiceName("EnterpriseMessagingProducerService")
 public class ProducerHandler implements EventHandler {
 
@@ -31,7 +33,7 @@ public class ProducerHandler implements EventHandler {
 	@Qualifier("taskmanager-events")
 	MessagingService messagingService;
 
-	@After(event = CdsService.EVENT_CREATE, entity = EnterpriseMessagingProducerService_.CDS_NAME)
+	@On(event = CdsService.EVENT_CREATE, entity = "EnterpriseMessagingProducerService.Students")
 	public void produceStudentEnrollementEvent(List<Students> studentlists) throws Exception {
 
 		JSONObject payload = new JSONObject();
@@ -55,5 +57,14 @@ public class ProducerHandler implements EventHandler {
 		messagingService.emit("sap/taskmanager-events/event-mesh/Topic1", payload);
 
 	}
+
+/* 	@On(service = "taskmanager-events", event = "sap/taskmanager-events/event-mesh/user-registration-topic")
+    public void listen(TopicMessageEventContext context) {
+        
+        logger.info("---------------------------Reading Payload Emitted by the Event----------------------------------------------------");
+         logger.info("checking if the message if read from SAP Event Mesh {}",context.getIsInbound());
+        logger.info("reading event id{}",context.getMessageId());
+        logger.info("reading event data{}", context.getData());
+    } */
 
 }

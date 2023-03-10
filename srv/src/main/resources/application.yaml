@@ -1,6 +1,8 @@
 ---
 spring:
   config.activate.on-profile: cloud
+server:
+  port: 9090
 cds:
   datasource:
     auto-config.enabled: false
@@ -8,5 +10,3 @@ cds:
     services:
       - name: "taskmanager-events"
         kind: "enterprise-messaging"
-        queue: 
-        - name: "StudentEnrolled"

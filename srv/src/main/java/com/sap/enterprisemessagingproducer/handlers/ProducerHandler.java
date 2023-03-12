@@ -23,7 +23,7 @@ import cds.gen.enterprisemessagingproducerservice.Students;
 import cds.gen.sap.capire.enterprisemessagingproducer.Student;
 
 @Component
-@Profile("cloud")
+//@Profile("cloud")
 @ServiceName("EnterpriseMessagingProducerService")
 public class ProducerHandler implements EventHandler {
 
